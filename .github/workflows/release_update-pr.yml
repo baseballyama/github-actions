@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - develop
+      - "releases/**"
+
+jobs:
+  update-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Get npm Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+    - uses: tzkhan/pr-update-action@v2
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        base-branch-regex: '[a-z\d-_.\\/]+'
+        head-branch-regex: 'master'
+        pr_title: 🚀リリース@${{ steps.package-version.outputs.current-version}}
