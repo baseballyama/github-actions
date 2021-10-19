@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   release:
@@ -27,6 +27,6 @@ jobs:
         uses: changesets/action@master
         with:
           # this expects you to have a npm script called version that runs some logic and then calls `changeset version`.
-          version: yarn version
+          version: npm version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
