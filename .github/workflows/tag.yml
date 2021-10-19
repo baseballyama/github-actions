@@ -1,0 +1,23 @@
+name: Tag
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get npm Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Create Tag
+        run: |
+          git tag v${{ steps.package-version.outputs.current-version}} master
+          git push origin v${{ steps.package-version.outputs.current-version}}
