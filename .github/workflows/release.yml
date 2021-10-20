@@ -3,7 +3,6 @@ name: Release
 on:
   push:
     branches:
-      - master
       - develop
       - "releases/**"
 
@@ -27,6 +26,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
+          base: master
           commit-message: release@${{ steps.package-version.outputs.current-version}}
           signoff: false
           branch: release/${{ steps.package-version.outputs.current-version}}
