@@ -3,6 +3,8 @@
 // modifications to improve readability:
 // - removed thanks notes. We're thanking contributors in the PRs or acknowledge their work in different ways
 // - moved issue links to end of first line
+// - omit link to merge commit if PR link is found
+// - linkify issue hints like (see #123) or (fixes #567)
 
 const { config } = require("dotenv");
 const {
@@ -74,9 +76,19 @@ const changelogFunctions = {
       })
       .trim();
 
+    // add links to issue hints (fix #123) => (fix [#123](https://....))
+    const linkifyIssueHints = (line) =>
+      line.replace(
+        /(?<=\( ?(?:fix|fixes|see) )(#\d+)(?= ?\))/g,
+        (issueHash) => {
+          return `[${issueHash}](https://github.com/${
+            options.repo
+          }/issues/${issueHash.substring(1)})`;
+        }
+      );
     const [firstLine, ...futureLines] = replacedChangelog
       .split("\n")
-      .map((l) => l.trimRight());
+      .map((l) => linkifyIssueHints(l.trimRight()));
 
     const links = await (async () => {
       if (prFromSummary !== undefined) {
@@ -107,10 +119,12 @@ const changelogFunctions = {
       };
     })();
 
-    const suffix = [
-      links.pull === null ? "" : ` (${links.pull})`,
-      //links.commit === null ? '' : ` (${links.commit})`
-    ].join("");
+    // only link PR or merge commit not both
+    const suffix = links.pull
+      ? ` (${links.pull})`
+      : links.commit
+      ? ` (${links.commit})`
+      : "";
 
     return `\n\n- ${firstLine}${suffix}\n${futureLines
       .map((l) => `  ${l}`)
