@@ -1,28 +1,28 @@
-name: Release (Create PR)
+# name: Release (Create PR)
 
-on:
-  push:
-    branches:
-      - develop
-      - "releases/**"
+# on:
+#   push:
+#     branches:
+#       - develop
+#       - "releases/**"
 
-jobs:
-  pull-request:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+# jobs:
+#   pull-request:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
 
-      - name: Get npm Version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+#       - name: Get npm Version
+#         id: package-version
+#         uses: martinbeentjes/npm-get-version-action@master
+#         with:
+#           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Create Pull Request
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: "master"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_title: 🚀リリース@${{ steps.package-version.outputs.current-version}}
-          pr_template: ".github/PULL_REQUEST_RELEASE.md"
-          pr_label: "release"
+#       - name: Create Pull Request
+#         uses: repo-sync/pull-request@v2
+#         with:
+#           destination_branch: "master"
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           pr_title: 🚀リリース@${{ steps.package-version.outputs.current-version}}
+#           pr_template: ".github/PULL_REQUEST_RELEASE.md"
+#           pr_label: "release"
