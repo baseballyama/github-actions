@@ -17,6 +17,6 @@ jobs:
         with:
           destination_branch: "master"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_title: 🚀Release ${{ github.ref }} into master
+          pr_title: 🚀Release (${GITHUB_REF##*/} 👉 master)
           pr_template: ".github/PULL_REQUEST_RELEASE.md"
           pr_label: "release"
