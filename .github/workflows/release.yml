@@ -15,8 +15,6 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Get current date
         id: date
