@@ -30,7 +30,7 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: release/${{ steps.package-version.outputs.current-version}}
-          base: main
+          base: master
           delete-branch: true
           title: release@${{ steps.package-version.outputs.current-version}}
           labels: release
