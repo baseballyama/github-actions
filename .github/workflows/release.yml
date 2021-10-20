@@ -8,8 +8,7 @@ on:
       - "releases/**"
 
 jobs:
-  release:
-    name: Release
+  createPullRequest:
     runs-on: ubuntu-latest
     steps:
       uses: peter-evans/create-pull-request@v3.10.1
