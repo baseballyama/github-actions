@@ -1,6 +1,6 @@
 # What is this
 
-This repository provides basic configuration for automation of workflow on GitHub.
+This repository is template of basic configuration for workflow automations.
 
 # Automations
 
