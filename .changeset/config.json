@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@1.6.1/schema.json",
-  "changelog": "./changelog-github-custom.js",
+  "changelog": [
+    "./changelog-github-custom.js",
+    { "repo": "baseballyama/github-actions" }
+  ],
   "commit": false,
   "linked": [],
   "access": "restricted",
