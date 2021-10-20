@@ -35,7 +35,5 @@ jobs:
           base: main
           delete-branch: true
           title: release@${{ steps.package-version.outputs.current-version}}
-          body: |
-            title: release@${{ steps.package-version.outputs.current-version}}
-           labels: release
+          labels: release
           draft: false
