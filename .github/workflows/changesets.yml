@@ -9,7 +9,7 @@ on:
 
 jobs:
   release:
-    name: Release
+    name: Create CHANGELOG
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
