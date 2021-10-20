@@ -26,4 +26,4 @@ https://github.com/atlassian/changesets/blob/main/docs/intro-to-using-changesets
 
 ### Reference
 
-https://github.com/marketplace/actions/create-pull-request
+https://github.com/marketplace/actions/github-pull-request-action
