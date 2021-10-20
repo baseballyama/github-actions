@@ -11,6 +11,36 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
-      uses: peter-evans/create-pull-request@v3.10.1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+
+      - name: get-npm-version
+          id: package-version
+          uses: martinbeentjes/npm-get-version-action@master
+          with:
+            GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+            BRANCH_PREFIX: release/
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y/%m/%d')"
+
+      - name: Make changes to pull request
+        run: date +%s > report.txt
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: release@${{ steps.package-version.outputs.current-version}}
+          signoff: false
+          branch: release/${{ steps.package-version.outputs.current-version}}
+          delete-branch: true
+          title: release@${{ steps.package-version.outputs.current-version}}
+          labels: release
+          draft: false
+
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
