@@ -7,7 +7,7 @@ on:
       - "releases/**"
 
 jobs:
-  update_routes:
+  update-pull-request:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,12 +18,14 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - uses: gr2m/create-or-update-pull-request-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: tzkhan/pr-update-action@v2
         with:
-          title: 🚀リリース@${{ steps.package-version.outputs.current-version}}
-          body: "My pull request body"
-          branch: "master"
-          commit-message: release@${{ steps.package-version.outputs.current-version}}
-          labels: release
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          base-branch-regex: "master"
+          head-branch-regex: ".*"
+          title-template: 🚀リリース@${{ steps.package-version.outputs.current-version}}
+          body-template: |
+            Merging into '%basebranch%'
+            [Link to %headbranch%](https://url/to/browse/ticket/%headbranch%)
+          body-update-action: "suffix"
+          body-uppercase-base-match: false
