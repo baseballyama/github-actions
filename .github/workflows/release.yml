@@ -10,9 +10,6 @@ on:
 jobs:
   release:
     name: Release
+    uses: peter-evans/create-pull-request@v3.10.1
     with:
       token: ${{ secrets.GITHUB_TOKEN }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3.10.1
