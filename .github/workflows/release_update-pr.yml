@@ -1,4 +1,4 @@
-name: Release
+name: Release (Update PR)
 
 on:
   push:
@@ -21,4 +21,4 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           base-branch-regex: '[a-z\d-_.\\/]+'
           head-branch-regex: "master"
-          pr_title: 🚀リリース@${{ steps.package-version.outputs.current-version}}
+          title-template: 🚀リリース@${{ steps.package-version.outputs.current-version}}
