@@ -26,7 +26,6 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           base: master
           commit-message: release@${{ steps.package-version.outputs.current-version}}
           signoff: false
