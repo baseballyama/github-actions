@@ -5,7 +5,9 @@ on:
     branches:
       - develop
       - "releases/**"
-
+  pull_request:
+    branches:
+      - master
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
@@ -30,7 +32,6 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: release/${{ steps.package-version.outputs.current-version}}
-          base: master
           delete-branch: true
           title: release@${{ steps.package-version.outputs.current-version}}
           labels: release
